@@ -17,8 +17,14 @@ cancelEvents.register(function() {
  * Helper function to never extend 60fps on the webpage.
  */
 var requestAnimationFrame = (function () {
-  return  window.requestAnimationFrame       ||
-          window.webkitRequestAnimationFrame ||
+
+  return  (
+            typeof window != 'undefined' &&
+            (
+              window.requestAnimationFrame       ||
+              window.webkitRequestAnimationFrame
+            )
+          ) ||
           function (callback, element, delay) {
               window.setTimeout(callback, delay || (1000/60));
           };
